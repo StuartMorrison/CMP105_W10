@@ -4,6 +4,8 @@
 #include "Framework/Input.h"
 #include <string>
 #include <iostream>
+#include "MapSetup.h"
+#include "Player.h"
 
 
 class Level{
@@ -23,4 +25,8 @@ private:
 	// Default variables for level class.
 	sf::RenderWindow* window;
 	Input* input;
+
+	MapSetup mapSetup;
+	Player player;
+	sf::Texture playerText;
 };
