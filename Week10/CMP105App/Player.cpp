@@ -59,8 +59,39 @@ void Player::update(float dt)
 
 void Player::collisionResponse(GameObject* collider)
 {
-	stepVelocity.y = 0;
-	setPosition(getPosition().x, collider->getPosition().y - getSize().y);
+	float diffX = (collider->getPosition().x + (collider->getSize().x/2)) - (getPosition().x + (getSize().x/2));
+	float diffY = (collider->getPosition().y + (collider->getSize().x/2)) - (getPosition().y + (getSize().x/2));
+	
+	if (abs(diffX) < abs(diffY))
+	{
+		if (diffY < 0)
+		{
+			stepVelocity.y = -0.1;
+			setPosition(getPosition().x, collider->getPosition().y + getSize().y*2);
+		}
+		else
+		{
+			if (stepVelocity.y > 0)
+			{
+				stepVelocity.y = 0;
+				setPosition(getPosition().x, collider->getPosition().y - getSize().y);
+			}
+		}
+	}
+	else if (abs(diffX) > abs(diffY))
+	{
+		if (diffX < 0)
+		{
+			velocity.x = 0;
+			setPosition(collider->getPosition().x + getSize().x*2, getPosition().y);
+		}
+		else
+		{
+			velocity.x = 0;
+			setPosition(collider->getPosition().x - getSize().x, getPosition().y);
+		}
+	}
+		
 }
 
 Player::~Player()

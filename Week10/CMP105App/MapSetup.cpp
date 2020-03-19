@@ -63,23 +63,13 @@ void MapSetup::Collision(GameObject &player)
 	std::vector<GameObject>* world = tileMap.getLevel();
 	
 	for (int i = 0; i < (int)world->size(); i++)
-	{
-		float diffX = ((*world)[i].getPosition().x + 8) - (player.getPosition().x + 8);
-		float diffY = ((*world)[i].getPosition().y + 8) - (player.getPosition().y + 8);
-		
+	{	
 		//if collision should occur
 		if ((*world)[i].isCollider())
 		{
 			if (Collision::checkBoundingBox(&player, &(*world)[i]))
 			{
-				if (abs(diffY) < abs(diffX))
-				{
-					player.setVelocity(0.0f, player.getVelocity().y);
-				}
-				else
-				{
 					player.collisionResponse(&(*world)[i]);
-				}
 			}
 		}
 	}
